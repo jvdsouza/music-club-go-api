@@ -8,6 +8,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+
+	"os"
+
+	cors "github.com/gin-contrib/cors"
 )
 
 func main() {
@@ -18,6 +22,12 @@ func main() {
 	if err != nil {
 		panic(".env file could not be loaded")
 	}
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
+		AllowHeaders:     []string{"Origin"},
+		AllowCredentials: true,
+	}))
 
 	models.ConnectDatabase()
 	models.ConnectSpotifyAPI()
