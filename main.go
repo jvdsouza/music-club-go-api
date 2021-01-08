@@ -20,6 +20,7 @@ func main() {
 	}
 
 	models.ConnectDatabase()
+	models.ConnectSpotifyAPI()
 
 	r.LoadHTMLGlob("templates/*.html")
 	r.GET("/", func(c *gin.Context) {
